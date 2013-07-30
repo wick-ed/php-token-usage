@@ -1,0 +1,17 @@
+{
+    "name": "techdivision/techdivision_applicationserverproject",
+    "type": "project",
+    "description": "A Webapp Project-Stub for the ApplicationServer",
+    "version": "0.1.0",
+    "require": {
+        "components/jquery": "*",
+        "components/font-awesome": "*",
+        "components/bootstrap-default": "*"
+    },
+    "authors": [
+        {
+            "name": "Johann Zelger",
+            "email": "j.zelger@techdivision.com"
+        }
+    ]
+}

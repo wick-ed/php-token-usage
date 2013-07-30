@@ -1,0 +1,13 @@
+<datasources>
+    <datasource type="TechDivision\PersistenceContainer\Application">
+        <name>Foo\Bar</name>
+        <pathToEntities>META-INF/classes/Foo/Bar/Entities</pathToEntities>
+        <database>
+            <driver>pdo_sqlite</driver>
+            <user>appserver</user>
+            <password>appserver</password>
+            <path>META-INF/data/foo_bar.sqlite</path>
+            <memory>false</memory>
+        </database>
+    </datasource>
+</datasources>

@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * layout.phtml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
+
+/**
+ * @package     templates
+ * @copyright   Copyright (c) 2013 <info@techdivision.com> - TechDivision GmbH
+ * @license     http://opensource.org/licenses/osl-3.0.php
+ *              Open Software License (OSL 3.0)
+ * @author      Johann Zelger <j.zelger@techdivision.com>
+ */
+
+/** @var $this \TechDivision\Example\Templates\DemoTemplate */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <base href="<?php echo $this->getBaseUrl() ?>">
+    <title><?php echo $this->getBaseUrl() ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Webapp created with ApplicationServerProject Stub">
+    <meta name="author" content="Your Name">
+    <link href="components/require.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        table td {
+            padding: 12px;
+        }
+        /* Custom container */
+        .container-narrow {
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .container-narrow > hr {
+            margin: 30px 0;
+        }
+
+        /* Main marketing message and sign up button */
+        .jumbotron {
+            margin: 60px 0;
+            text-align: center;
+        }
+        .jumbotron h1 {
+            font-size: 72px;
+            line-height: 1;
+        }
+        .jumbotron .btn {
+            font-size: 21px;
+            padding: 14px 24px;
+        }
+
+        /* Supporting marketing content */
+        .marketing {
+            margin: 60px 0;
+        }
+        .marketing p + h4 {
+            margin-top: 28px;
+        }
+
+        .nowrap {
+            white-space:nowrap;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container-narrow">
+
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+            <li><a href="home">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
+        </ul>
+        <h3 class="muted"><?php echo $this->getWebappName() ?></h3>
+    </div>
+
+    <hr>
+
+    <div class="jumbotron">
+        <a href="http://appserver.io">
+            <img src="http://appserver.io/static/img/logo-black.png"/>
+        </a>
+        <h1>Congrats!</h1>
+        <p class="lead">Your webapp <strong><?php echo $this->getWebappName() ?></strong> ist up and running.</strong></p>
+    </div>
+
+    <hr>
+
+    <div class="row-fluid marketing">
+        <div class="span12">
+            <table class="table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="nowrap"><strong>Request Uri</strong></td>
+                        <td><?php echo $this->getRequestUri() ?></td>
+                    </tr>
+                    <tr>
+                        <td class="nowrap"><strong>User Agent</strong></td>
+                        <td><small><?php echo $this->getUserAgent() ?></small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!-- /container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="components/require.js"></script>
+</body>
+</html>
