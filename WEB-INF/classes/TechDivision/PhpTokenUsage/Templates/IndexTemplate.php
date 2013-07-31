@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TechDivision\Example\Templates\DemoTemplate
+ * TechDivision\PhpTokenUsage\Templates\IndexTemplate
  *
  * NOTICE OF LICENSE
  *
@@ -10,9 +10,9 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace TechDivision\Example\Templates;
+namespace TechDivision\PhpTokenUsage\Templates;
 
-use TechDivision\Example\Templates\AbstractTemplate;
+use TechDivision\PhpTokenUsage\Templates\AbstractTemplate;
 
 /**
  * @package     TechDivision\Example
@@ -22,7 +22,7 @@ use TechDivision\Example\Templates\AbstractTemplate;
  * @author      Johann Zelger <j.zelger@techdivision.com>
  */
 
-class DemoTemplate extends AbstractTemplate
+class IndexTemplate extends AbstractTemplate
 {
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TechDivision\Example\Servlets\LoginServlet
+ * TechDivision\PhpTokenUsage\Servlets\IndexServlet
  *
  * NOTICE OF LICENSE
  *
@@ -10,9 +10,9 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace TechDivision\Example\Servlets;
+namespace TechDivision\PhpTokenUsage\Servlets;
 
-use TechDivision\Example\Templates\DemoTemplate;
+use TechDivision\PhpTokenUsage\Templates\IndexTemplate;
 use TechDivision\ServletContainer\Interfaces\Request;
 use TechDivision\ServletContainer\Interfaces\Response;
 use TechDivision\ServletContainer\Servlets\HttpServlet;
@@ -25,7 +25,7 @@ use TechDivision\ServletContainer\Servlets\HttpServlet;
  * @author      Johann Zelger <j.zelger@techdivision.com>
  */
 
-class DemoServlet extends HttpServlet
+class IndexServlet extends HttpServlet
 {
     /**
      * @param Request $req
@@ -36,10 +36,10 @@ class DemoServlet extends HttpServlet
     {
         // build path to template
         $pathToTemplate = $this->getServletConfig()->getWebappPath()
-            . DS . 'templates' . DS . 'layout.phtml';
+            . DS . 'templates' . DS . 'index.phtml';
 
         // init template
-        $template = new DemoTemplate($pathToTemplate);
+        $template = new IndexTemplate($pathToTemplate);
 
         $baseUrl = '/';
         // if the application has NOT been called over a VHost configuration append application folder naem
@@ -55,5 +55,32 @@ class DemoServlet extends HttpServlet
 
         // set response content by render template
         $res->setContent($template->render());
+    }
+
+
+    public function doPost(Request $req, Response $res)
+    {
+        // init global data storage
+        $data = new Data();
+
+// iterate all downloads
+        foreach ($downloads as $filename => $url) {
+            // init async download instance
+            $asyncDownloaders[$filename] = new AsyncDownloader($data, $url, $filename);
+            // start downloader
+            $asyncDownloaders[$filename]->start();
+            // log status message
+            echo 'Started download: ' . $url . PHP_EOL;
+        }
+
+// wait for all downloaders to be finished
+        foreach ($asyncDownloaders as $downloader) {
+            $downloader->join();
+        }
+
+// echo data from global data storage
+        foreach ($data as $filename => $value) {
+            echo $value . PHP_EOL;
+        }
     }
 }

@@ -20,18 +20,18 @@
 
     <servlet>
         <description><![CDATA[A demo servlet that renders a template showing the current uri requested]]></description>
-        <display-name>DemoServlet</display-name>
-        <servlet-name>DemoServlet</servlet-name>
-        <servlet-class>\TechDivision\Example\Servlets\DemoServlet</servlet-class>
+        <display-name>IndexServlet</display-name>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>\TechDivision\PhpTokenUsage\Servlets\IndexServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>DemoServlet</servlet-name>
+        <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>DemoServlet</servlet-name>
+        <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
