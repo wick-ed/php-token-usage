@@ -18,7 +18,7 @@
  * @author      Johann Zelger <j.zelger@techdivision.com>
  */
 
-/** @var $this \TechDivision\PhpTokenUsage\Templates\IndexTemplate */
+/** @var $this \TechDivision\PhpTokenUsage\Templates\ResultTemplate */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +96,7 @@
             <img src="http://appserver.io/static/img/logo-black.png"/>
         </a>
         <h1>Congrats!</h1>
-        <p class="lead">Your webapp <strong><?php echo $this->getWebappName() ?></strong> ist up and running.</strong></p>
+        <p class="lead">Your webapp <strong><?php var_dump($this->getData()); ?></strong> ist up and running.</strong></p>
     </div>
 
     <hr>
@@ -104,16 +104,6 @@
     <div class="row-fluid marketing">
         <div class="span12">
             <table class="table-bordered table-hover">
-                <tbody>
-                    <tr>
-                        <td class="nowrap"><strong>Request Uri</strong></td>
-                        <td><?php echo $this->getRequestUri() ?></td>
-                    </tr>
-                    <tr>
-                        <td class="nowrap"><strong>User Agent</strong></td>
-                        <td><small><?php echo $this->getUserAgent() ?></small></td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>

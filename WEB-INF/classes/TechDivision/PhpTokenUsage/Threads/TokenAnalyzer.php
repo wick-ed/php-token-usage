@@ -2,7 +2,9 @@
 
 namespace TechDivision\PhpTokenUsage\Threads;
 
-class TokenAnalyzer extends Thread
+use TechDivision\PhpTokenUsage\Entities\Project;
+
+class TokenAnalyzer extends \Thread
 {
     /**
      * Holds the path of the folder to analyze files in
@@ -19,9 +21,16 @@ class TokenAnalyzer extends Thread
     public $tokens;
 
     /**
+     * The project we have to scan
+     *
+     * @var Project
+     */
+    public $project;
+
+    /**
      * Holds global storage
      *
-     * @var Stackable
+     * @var \Stackable
      */
     public $data;
 
@@ -29,10 +38,11 @@ class TokenAnalyzer extends Thread
      * @param Stackable $data
      * @param $path
      */
-    public function __construct(Stackable $data, $path, $tokens)
+    public function __construct(\Stackable $data, $path, Project $project, $tokens)
     {
         $this->data = $data;
         $this->path = $path;
+        $this->project = $project;
 
         // Make sure we get an array
         if (!is_array($tokens)) {
@@ -49,99 +59,73 @@ class TokenAnalyzer extends Thread
     public function run()
     {
         // get current start time
-        $startTime = time();
+        $startTime = microtime(true);
+        $data = array();
+        $data[$this->project->name] = array();
 
+        // First of all we have to get all the files we need to scan
+        foreach ($this->project->versions as $version) {
 
+            $data[$this->project->name][$version] = array();
+            $data[$this->project->name][$version]['files'] = 0;
+            $data[$this->project->name][$version]['tokens'] = 0;
 
+            // Initiate the arrays
+            foreach ($this->tokens as $token) {
 
-        for ($i = 0; $i < count($items); $i++) {
-            if (is_dir($items[$i])) {
+                $data[$this->project->name][$version][$token] = 0;
+            }
 
-                $add = glob($items[$i] . '/*');
-                $items = array_merge($items, $add);
+            // Now traverse over all the files there are for this version
+            $items = glob($this->path . DS . $this->project->name . DS . $version . DS . '*');
+            $files = array();
 
-            } else {
+            for ($i = 0; $i < count($items); $i++) {
 
-                if (strrpos($items[$i], '.php') == strlen($items[$i]) - 4) {
+                if (is_dir($items[$i]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
 
-                    // Get the name of the framework
-                    $frameworkName = str_replace('./', '', $items[$i]);
-                    $frameworkName = strstr($frameworkName, '/', true);
+                    $items = array_merge($items, glob($items[$i] . DS . '*'));
 
-                    // The version is useful as well!
-                    $frameworkVersion = strstr($frameworkName, ' ');
+                } else {
 
-                    // Now we do not need the version in the name anymore
-                    $frameworkName = ltrim(strstr($frameworkName, ' ', true));
+                    // Check if we got a php file
+                    if (strrpos($items[$i], '.php') == strlen($items[$i]) - 4) {
 
-                    // Make an array for each framework
-                    if (isset($counter[$frameworkName]) === false) {
-
-                        // Prepare an array for the framework itself
-                        $counter[$frameworkName] = array();
+                        $files[] = $items[$i];
                     }
+                }
+            }
 
-                    // Prepare the framework version specific array
-                    if (isset($counter[$frameworkName][$frameworkVersion]) === false) {
+            // Now traverse over all the files
+            $searchedTokens = array_flip($this->tokens);
+            foreach ($files as $file) {
 
-                        $counter[$frameworkName][$frameworkVersion] = $counterTemplate;
-                    }
+                // Increase the file count
+                $this->data[$this->project->name][$version]['files'] ++;
 
-                    // Increase the overall file counter
-                    $counter['files']++;
-                    // As well as the framework specific counter
-                    $counter[$frameworkName][$frameworkVersion]['files']++;
+                // First of all we get the tokens
+                $tokens = token_get_all(file_get_contents($file));
 
-                    // Get the tokens of the file
-                    $tokens = token_get_all(file_get_contents($items[$i]));
+                // Scan all the tokens
+                $counter = count($tokens);
+                for ($i = 0; $i <  $counter; $i++) {
 
-                    // Check how many stuff we got
-                    foreach ($tokens as $token) {
+                    $data[$this->project->name][$version]['tokens'] ++;
 
-                        if (is_array($token)) {
+                    if (is_array($token) && isset($searchedTokens[$tokens[$i][0]])) {
 
-                            if ($token[0] === T_CLASS) {
-                                // If we got a class, we have to count the requires
-
-                                // Check how many stuff we got
-                                foreach ($tokens as $token) {
-
-                                    switch ($token[0]) {
-
-                                        case T_REQUIRE:
-
-                                            $counter[$frameworkName][$frameworkVersion]['require']++;
-                                            break;
-
-                                        case T_REQUIRE_ONCE:
-
-                                            $counter[$frameworkName][$frameworkVersion]['requireOnce']++;
-                                            break;
-
-                                        case T_INCLUDE:
-
-                                            $counter[$frameworkName][$frameworkVersion]['include']++;
-                                            break;
-
-                                        case T_INCLUDE_ONCE:
-
-                                            $counter[$frameworkName][$frameworkVersion]['includeOnce']++;
-                                            break;
-                                    }
-                                }
-
-                                // Check the next file
-                                break;
-                            }
-                        }
+                        $data[$this->project->name][$version][$tokens[$i][0]] ++;
                     }
                 }
             }
         }
 
         // get time after download finished
-        $endTime = time();
+        $endTime = microtime(true);
         // calc delta time
-        $deltaTime = $endTime - $startTime;
+        $data[$this->project->name][$version]['time'] = $endTime - $startTime;
+
+        // Give our results to the stackable
+        $this->data->data = $data;
     }
 }

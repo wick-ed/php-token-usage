@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TechDivision\PhpTokenUsage\Templates\IndexTemplate
+ * TechDivision\PhpTokenUsage\Templates\ResultTemplate
  *
  * NOTICE OF LICENSE
  *
@@ -22,7 +22,7 @@ use TechDivision\PhpTokenUsage\Templates\AbstractTemplate;
  * @author      Johann Zelger <j.zelger@techdivision.com>
  */
 
-class IndexTemplate extends AbstractTemplate
+class ResultTemplate extends AbstractTemplate
 {
 
     /**
@@ -32,7 +32,7 @@ class IndexTemplate extends AbstractTemplate
      */
     protected $webappName;
     protected $baseUrl;
-    protected $projects;
+    protected $data;
 
     /**
      * @param string $webappName
@@ -67,18 +67,18 @@ class IndexTemplate extends AbstractTemplate
     }
 
     /**
-     * @param $projects
+     * @return mixed
      */
-    public function setProjects(array $projects)
+    public function getData()
     {
-        $this->projects = $projects;
+        return $this->data;
     }
 
     /**
-     * @return array
+     * @param mixed $baseUrl
      */
-    public function getProjects()
+    public function setData($data)
     {
-        return $this->projects;
+        $this->data = $data;
     }
 }

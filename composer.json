@@ -19,6 +19,6 @@
         }
     ],
     "autoload": {
-        "psr-0": {"TechDivision": "WEB_INF/classes/"}
+        "psr-0": {"TechDivision": "WEB-INF/classes/"}
     }
 }
