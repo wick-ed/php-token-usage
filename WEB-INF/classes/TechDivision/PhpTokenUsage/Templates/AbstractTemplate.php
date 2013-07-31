@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TechDivision\Example\Templates\AbstractTemplate
+ * TechDivision\PhpTokenUsage\Templates\AbstractTemplate
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace TechDivision\Example\Templates;
+namespace TechDivision\PhpTokenUsage\Templates;
 
 /**
  * @package     TechDivision\Example

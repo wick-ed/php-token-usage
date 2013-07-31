@@ -52,6 +52,8 @@ class TokenAnalyzer extends Thread
         $startTime = time();
 
 
+
+
         for ($i = 0; $i < count($items); $i++) {
             if (is_dir($items[$i])) {
 

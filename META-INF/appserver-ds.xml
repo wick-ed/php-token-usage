@@ -1,12 +1,12 @@
 <datasources>
     <datasource type="TechDivision\PersistenceContainer\Application">
-        <name>Foo\Bar</name>
-        <pathToEntities>META-INF/classes/Foo/Bar/Entities</pathToEntities>
+        <name>TechDivision\PhpTokenUsage</name>
+        <pathToEntities>META-INF/classes/TechDivision/PhpTokenUsage/Entities</pathToEntities>
         <database>
             <driver>pdo_sqlite</driver>
             <user>appserver</user>
             <password>appserver</password>
-            <path>META-INF/data/foo_bar.sqlite</path>
+            <path>META-INF/data/PhpTokenUsage.sqlite</path>
             <memory>false</memory>
         </database>
     </datasource>

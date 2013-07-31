@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app version="2.4">
 
-    <display-name>Your Webapp</display-name>
+    <display-name>PhpTokenUsage</display-name>
     <description>Webapp created with ApplicationServerProject Stub</description>
 
     <servlet>
@@ -19,7 +19,7 @@
     </servlet>
 
     <servlet>
-        <description><![CDATA[A demo servlet that renders a template showing the current uri requested]]></description>
+        <description><![CDATA[Index servlet which handles site generation and triggers usage analyzing]]></description>
         <display-name>IndexServlet</display-name>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>\TechDivision\PhpTokenUsage\Servlets\IndexServlet</servlet-class>

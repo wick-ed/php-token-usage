@@ -1,3 +1,6 @@
+# files within vendor folder
+./vendor/*
+
 # the apple directory description
 .DS_Store
 

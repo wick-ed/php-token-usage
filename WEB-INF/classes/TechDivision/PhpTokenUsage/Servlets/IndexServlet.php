@@ -12,6 +12,7 @@
 
 namespace TechDivision\PhpTokenUsage\Servlets;
 
+use TechDivision\PhpTokenUsage\Stackables\TokenCounter;
 use TechDivision\PhpTokenUsage\Templates\IndexTemplate;
 use TechDivision\ServletContainer\Interfaces\Request;
 use TechDivision\ServletContainer\Interfaces\Response;
@@ -42,7 +43,7 @@ class IndexServlet extends HttpServlet
         $template = new IndexTemplate($pathToTemplate);
 
         $baseUrl = '/';
-        // if the application has NOT been called over a VHost configuration append application folder naem
+        // if the application has NOT been called over a VHost configuration append application folder name
         if (!$this->getServletConfig()->getApplication()->isVhostOf($req->getServerName())) {
             $baseUrl .= $this->getServletConfig()->getApplication()->getName() . '/';
         }
@@ -50,21 +51,25 @@ class IndexServlet extends HttpServlet
         // set vars in template
         $template->setBaseUrl($baseUrl);
         $template->setRequestUri($req->getUri());
-        $template->setUserAgent($req->getHeader("User-Agent"));
         $template->setWebappName($this->getServletConfig()->getApplication()->getName());
 
         // set response content by render template
         $res->setContent($template->render());
     }
 
-
+    /**
+     * @param Request $req
+     * @param Response $res
+     */
     public function doPost(Request $req, Response $res)
     {
         // init global data storage
-        $data = new Data();
+        $tokenCounter = new TokenCounter();
 
-// iterate all downloads
-        foreach ($downloads as $filename => $url) {
+        var_dump($req);die();
+
+        // iterate all downloads
+        foreach (array() as $filename => $url) {
             // init async download instance
             $asyncDownloaders[$filename] = new AsyncDownloader($data, $url, $filename);
             // start downloader

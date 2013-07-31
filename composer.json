@@ -1,7 +1,7 @@
 {
-    "name": "techdivision/techdivision_applicationserverproject",
+    "name": "techdivision/php-token-usage",
     "type": "project",
-    "description": "A Webapp Project-Stub for the ApplicationServer",
+    "description": "A Webapp to count the usage of PHP tokens for the ApplicationServer",
     "version": "0.1.0",
     "require": {
         "components/jquery": "*",
@@ -10,8 +10,15 @@
     },
     "authors": [
         {
+            "name": "Bernhard Wick",
+            "email": "b.wick@techdivision.com"
+        },
+        {
             "name": "Johann Zelger",
             "email": "j.zelger@techdivision.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": {"TechDivision": "WEB_INF/classes/"}
+    }
 }
