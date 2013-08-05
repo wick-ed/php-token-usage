@@ -13,6 +13,7 @@
 namespace TechDivision\PhpTokenUsage\Servlets;
 
 use TechDivision\PhpTokenUsage\Entities\Project;
+use TechDivision\PhpTokenUsage\Entities\ThreadMutex;
 use TechDivision\PhpTokenUsage\Stackables\TokenCounter;
 use TechDivision\PhpTokenUsage\Templates\IndexTemplate;
 use TechDivision\PhpTokenUsage\Templates\ResultTemplate;
@@ -111,26 +112,26 @@ class IndexServlet extends HttpServlet
         $tokenCounter = new TokenCounter();
         $tokenAnalyzers = array();
         $path = realpath(__DIR__ . self::DATA_PATH);
+        $mutexes = array();
 
+        // Traverse over all projects
         $projects = $this->getProjects();
         foreach ($projects as $project) {
 
-            // If we got something, create a thread
-            if (isset($parameterMap[$project->name])) {
+            // Traverse over all versions and create an analyzer thread for each of them
+            foreach ($project->versions as $version) {
 
-                $tokenAnalyzers[$project->name] = new TokenAnalyzer($tokenCounter, $path, $project, $tokens);
-                // start analyzing
-                $tokenAnalyzers[$project->name]->start();
+                $mutexes[$project->name] = \Mutex::create();
+
+                // If we got something, create a thread
+                if (isset($parameterMap[strtolower($project->name)])) {
+
+                    $tokenAnalyzers[$project->name][$version] = new TokenAnalyzer($tokenCounter, $path, $project, $version, $tokens, $mutexes[$project->name]);
+                    // start analyzing
+                    $tokenAnalyzers[$project->name][$version]->start();
+                }
             }
         }
-
-        // wait for all threads to be finished
-        foreach ($tokenAnalyzers as $tokenAnalyzer) {
-
-            $tokenAnalyzer->join();
-        }
-
-        $template->setData($tokenAnalyzers);
 
         // set response content by render template
         $res->setContent($template->render());
@@ -158,7 +159,7 @@ class IndexServlet extends HttpServlet
 
                 // Now traverse over all the subfolders and add them to the version array
                 for ($j = 0; $j < count($versionItems); $j++) {
-                    if (is_dir($path . DS . $items[$i] . DS . $versionItems[$j]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
+                    if (is_dir($path . DS . $items[$i] . DS . $versionItems[$j]) && ($versionItems[$j] !== '.' && $versionItems[$j] !== '..')) {
 
                         $project->versions[] = $versionItems[$j];
                     }

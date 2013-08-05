@@ -28,6 +28,13 @@ class TokenAnalyzer extends \Thread
     public $project;
 
     /**
+     * Holds the specific version of the used project
+     *
+     * @var string
+     */
+    public $version;
+
+    /**
      * Holds global storage
      *
      * @var \Stackable
@@ -35,14 +42,20 @@ class TokenAnalyzer extends \Thread
     public $data;
 
     /**
-     * @param Stackable $data
+     * @param \Stackable $data
      * @param $path
+     * @param Project $project
+     * @param $version
+     * @param $tokens
+     * @param $mutex
      */
-    public function __construct(\Stackable $data, $path, Project $project, $tokens)
+    public function __construct(\Stackable $data, $path, Project $project, $version, $tokens, $mutex)
     {
         $this->data = $data;
         $this->path = $path;
         $this->project = $project;
+        $this->version = $version;
+        $this->mutex = $mutex;
 
         // Make sure we get an array
         if (!is_array($tokens)) {
@@ -58,64 +71,63 @@ class TokenAnalyzer extends \Thread
      */
     public function run()
     {
+        \Mutex::lock($this->mutex);
+
         // get current start time
         $startTime = microtime(true);
+
         $data = array();
         $data[$this->project->name] = array();
 
-        // First of all we have to get all the files we need to scan
-        foreach ($this->project->versions as $version) {
+        $data[$this->project->name][$this->version] = array();
+        $data[$this->project->name][$this->version]['files'] = 0;
+        $data[$this->project->name][$this->version]['tokens'] = 0;
 
-            $data[$this->project->name][$version] = array();
-            $data[$this->project->name][$version]['files'] = 0;
-            $data[$this->project->name][$version]['tokens'] = 0;
+        // Initiate the arrays
+        foreach ($this->tokens as $token) {
 
-            // Initiate the arrays
-            foreach ($this->tokens as $token) {
+            $data[$this->project->name][$this->version][$token] = 0;
+        }
 
-                $data[$this->project->name][$version][$token] = 0;
-            }
+        // Now traverse over all the files there are for this version
+        $items = glob($this->path . DS . $this->project->name . DS . $this->version . DS . '*');
+        $files = array();
 
-            // Now traverse over all the files there are for this version
-            $items = glob($this->path . DS . $this->project->name . DS . $version . DS . '*');
-            $files = array();
+        for ($i = 0; $i < count($items); $i++) {
 
-            for ($i = 0; $i < count($items); $i++) {
+            if (is_dir($items[$i]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
 
-                if (is_dir($items[$i]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
+                $items = array_merge($items, glob($items[$i] . DS . '*'));
 
-                    $items = array_merge($items, glob($items[$i] . DS . '*'));
+            } else {
 
-                } else {
+                // Check if we got a php file
+                if (strrpos($items[$i], '.php') == strlen($items[$i]) - 4) {
 
-                    // Check if we got a php file
-                    if (strrpos($items[$i], '.php') == strlen($items[$i]) - 4) {
-
-                        $files[] = $items[$i];
-                    }
+                    $files[] = $items[$i];
                 }
             }
+        }
 
-            // Now traverse over all the files
-            $searchedTokens = array_flip($this->tokens);
-            foreach ($files as $file) {
+        // Now traverse over all the files
+        $searchedTokens = array_flip($this->tokens);
+        foreach ($files as $file) {
 
-                // Increase the file count
-                $this->data[$this->project->name][$version]['files'] ++;
+            // Increase the file count
+            $this->data[$this->project->name][$this->version]['files']++;
 
-                // First of all we get the tokens
-                $tokens = token_get_all(file_get_contents($file));
+            // First of all we get the tokens
+            $tokens = token_get_all(file_get_contents($file));
 
-                // Scan all the tokens
-                $counter = count($tokens);
-                for ($i = 0; $i <  $counter; $i++) {
+            // Scan all the tokens
+            $counter = count($tokens);
+            for ($i = 0; $i < $counter; $i++) {
 
-                    $data[$this->project->name][$version]['tokens'] ++;
+                $data[$this->project->name][$this->version]['tokens']++;
 
-                    if (is_array($token) && isset($searchedTokens[$tokens[$i][0]])) {
+                if (is_array($token) && isset($searchedTokens[$tokens[$i][0]])) {
 
-                        $data[$this->project->name][$version][$tokens[$i][0]] ++;
-                    }
+                    $data[$this->project->name][$this->version][$tokens[$i][0]]++;
                 }
             }
         }
@@ -123,9 +135,11 @@ class TokenAnalyzer extends \Thread
         // get time after download finished
         $endTime = microtime(true);
         // calc delta time
-        $data[$this->project->name][$version]['time'] = $endTime - $startTime;
+        $data[$this->project->name][$this->version]['time'] = $endTime - $startTime;
 
         // Give our results to the stackable
         $this->data->data = $data;
+
+        \Mutex::unlock($this->mutex);
     }
 }

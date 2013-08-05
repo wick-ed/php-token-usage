@@ -47,20 +47,6 @@
             margin: 30px 0;
         }
 
-        /* Main marketing message and sign up button */
-        .jumbotron {
-            margin: 60px 0;
-            text-align: center;
-        }
-        .jumbotron h1 {
-            font-size: 72px;
-            line-height: 1;
-        }
-        .jumbotron .btn {
-            font-size: 21px;
-            padding: 14px 24px;
-        }
-
         /* Supporting marketing content */
         .marketing {
             margin: 60px 0;
@@ -81,33 +67,18 @@
 <div class="container-narrow">
 
     <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li><a href="home">Home</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li>
-        </ul>
         <h3 class="muted"><?php echo $this->getWebappName() ?></h3>
+        ... an <a href="http://appserver.io/" target="_blank">appserver</a> demo application
     </div>
 
     <hr>
 
-    <div class="jumbotron">
-        <a href="http://appserver.io">
-            <img src="http://appserver.io/static/img/logo-black.png"/>
-        </a>
-        <h1>Congrats!</h1>
-        <p class="lead">Your webapp <strong><?php var_dump($this->getData()); ?></strong> ist up and running.</strong></p>
+    <div class="span12">
+        Please be patient, a horde of our threads are busy to serve you
     </div>
+    <div id="result" class="span12">
 
-    <hr>
-
-    <div class="row-fluid marketing">
-        <div class="span12">
-            <table class="table-bordered table-hover">
-            </table>
-        </div>
     </div>
-
 </div>
 <!-- /container -->
 
