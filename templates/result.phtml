@@ -77,7 +77,11 @@
         Please be patient, a horde of our threads are busy to serve you
     </div>
     <div id="result" class="span12">
-
+        <?php foreach ($this->getData() as $data) : ?>
+            <div class="push-left">
+                <?php echo $data->createString() ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 <!-- /container -->

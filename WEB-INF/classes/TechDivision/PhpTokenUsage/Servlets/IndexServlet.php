@@ -13,7 +13,8 @@
 namespace TechDivision\PhpTokenUsage\Servlets;
 
 use TechDivision\PhpTokenUsage\Entities\Project;
-use TechDivision\PhpTokenUsage\Entities\ThreadMutex;
+use TechDivision\PhpTokenUsage\Entities\Result;
+use TechDivision\PhpTokenUsage\Entities\ThreadGroup;
 use TechDivision\PhpTokenUsage\Stackables\TokenCounter;
 use TechDivision\PhpTokenUsage\Templates\IndexTemplate;
 use TechDivision\PhpTokenUsage\Templates\ResultTemplate;
@@ -108,30 +109,43 @@ class IndexServlet extends HttpServlet
         $template->setBaseUrl($baseUrl);
         $template->setWebappName($this->getServletConfig()->getApplication()->getName());
 
-        // init global data storage
-        $tokenCounter = new TokenCounter();
+        // Initialize the thread array
         $tokenAnalyzers = array();
         $path = realpath(__DIR__ . self::DATA_PATH);
-        $mutexes = array();
 
         // Traverse over all projects
         $projects = $this->getProjects();
         foreach ($projects as $project) {
 
-            // Traverse over all versions and create an analyzer thread for each of them
-            foreach ($project->versions as $version) {
+            // If we got something, create a thread
+            if (isset($parameterMap[strtolower($project->name)])) {
 
-                $mutexes[$project->name] = \Mutex::create();
+                // Traverse over all versions and create an analyzer thread for each of them
+                $tmp = array();
+                // init global data storage
+                $tokenCounter = new TokenCounter();
 
-                // If we got something, create a thread
-                if (isset($parameterMap[strtolower($project->name)])) {
+                foreach ($project->versions as $version) {
 
-                    $tokenAnalyzers[$project->name][$version] = new TokenAnalyzer($tokenCounter, $path, $project, $version, $tokens, $mutexes[$project->name]);
-                    // start analyzing
-                    $tokenAnalyzers[$project->name][$version]->start();
+                    // If we got something, create a thread
+                    $tmp[] = new TokenAnalyzer($tokenCounter, $path, $project, $version, $tokens);
                 }
+
+                $tokenAnalyzers[$project->name] = new ThreadGroup($project->name, $tokenCounter, $tmp);
             }
         }
+
+        // Join them all as we cannot use websockets by now.
+        $results = array();
+        foreach ($tokenAnalyzers as $tokenAnalyzerGroup) {
+
+            while ($tokenAnalyzerGroup->isReady === false) {
+            }
+
+            $results[] = $tokenAnalyzerGroup->result;
+        }
+
+        $template->setData($results);
 
         // set response content by render template
         $res->setContent($template->render());
