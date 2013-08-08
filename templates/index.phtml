@@ -47,6 +47,10 @@
             margin: 30px 0;
         }
 
+        #projects ul li{
+            margin-bottom: 10px;
+        }
+
         /* Main marketing message and sign up button */
         .jumbotron {
             margin: 60px 0;
@@ -99,17 +103,31 @@
 
     <div class="row-fluid marketing">
         <form method="post" name="input-data">
-            <div class="span6">
+            <div id="projects" class="span3">
                 <strong>Projects to analyze:</strong>
                 <ul>
                     <?php foreach ($this->getProjects() as $project) : ?>
                     <li>
-                        <label for="<?php echo strtolower($project->name) ?>"><?php echo $project->name ?></label>
-                        <input type="checkbox" checked="checked" name="<?php echo strtolower($project->name) ?>" />
+                        <?php echo $project->name ?>
+                        <input class="push-right" type="checkbox" checked="checked" name="<?php echo strtolower($project->name) ?>" />
                     </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
+
+            <vr>
+
+            <div id="tokens">
+                <strong>Tokens to search for:</strong>
+                <select id = "tokenList[]">
+                    <?php foreach ($this->getTokens() as $value => $name) : ?>
+                        <option value="<?php echo $value ?>"><?php echo $name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <vr>
+
             <div class="span6 pull-right">
                 <input type="submit" />
             </div>

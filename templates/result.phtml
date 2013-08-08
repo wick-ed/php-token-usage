@@ -46,8 +46,12 @@
             max-width: 700px;
         }
 
-        #result {
+        #results {
             margin: 0 auto;
+        }
+
+        .result {
+            margin-bottom: 40px;
         }
 
         .container-narrow > hr {
@@ -81,9 +85,9 @@
 
     <hr>
 </div>
-<div id="result" class="span11">
+<div id="results" class="span11">
     <?php foreach ($this->getData() as $data) : ?>
-        <div class="push-left span5">
+        <div class="result push-left span5">
             <?php echo $data->createString() ?>
         </div>
     <?php endforeach; ?>

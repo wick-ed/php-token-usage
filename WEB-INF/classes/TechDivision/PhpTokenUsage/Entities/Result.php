@@ -28,21 +28,14 @@ class Result
      */
     public function createString()
     {
-        $result = '';
-
-        $result .= '<span>We analyzed '. $this->tokenCount . ' tokens in '. $this->fileCount . ' files in '. number_format($this->duration, 2) .' seconds.</span>
-        <canvas id="' . $this->name . '" width="350" height="350"></canvas>
-        <script type="text/javascript">var ' . $this->name . 'Data = {
-        labels : ["' . implode('","', $this->labels) . '"],
-        datasets : [';
-
+        // We pre-build the data part of our string, so we got the colors already for later (earlier) use
         $tmp = array();
         $color = array();
         foreach ($this->data as $token => $data) {
 
-            $color[$token][1] = (int) rand(25, 200);
-            $color[$token][2] = (int) rand(25, 200);
-            $color[$token][3] = (int) rand(25, 200);
+            $color[$token][1] = (int) rand(150, 255);
+            $color[$token][2] = (int) rand(25, 150);
+            $color[$token][3] = (int) rand(25, 150);
 
             $tmp[] = '{
                 fillColor : "rgba(' . $color[$token][1] . ',' . $color[$token][2] . ',' . $color[$token][3] . ',0.5)",
@@ -54,6 +47,26 @@ class Result
 
         }
 
+        // Now as we as we got the different colors, we can create one for the headline
+        $masterColor = array();
+        $masterColor[1] = $masterColor[2] = $masterColor[3] = 0;
+        $tokenCount = count($this->data);
+        foreach ($color as $colorAspect) {
+
+            $masterColor[1] += $colorAspect[1] / $tokenCount;
+            $masterColor[2] += $colorAspect[2] / $tokenCount;
+            $masterColor[3] += $colorAspect[3] / $tokenCount;
+        }
+
+        $result = '';
+
+        $result .= '
+        <h3>For <span style="color:rgba(' . (int) $masterColor[1] . ',' . (int) $masterColor[2] . ',' . (int) $masterColor[3] . ',1);">'. $this->name . '</span></h3>
+        <span>...we analyzed '. $this->tokenCount . ' tokens in '. $this->fileCount . ' files in '. number_format($this->duration, 2) .' seconds.</span>
+        <canvas id="' . $this->name . '" width="450" height="350"></canvas>
+        <script type="text/javascript">var ' . $this->name . 'Data = {
+        labels : ["' . implode('","', $this->labels) . '"],
+        datasets : [';
         $result .= implode(',', $tmp);
         $result .= ']
         };';

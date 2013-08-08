@@ -2,6 +2,8 @@
 
 namespace TechDivision\PhpTokenUsage\Entities;
 
+use TechDivision\PhpTokenUsage\Threads\TokenAnalyzer;
+
 class ThreadGroup
 {
     /**
@@ -23,6 +25,8 @@ class ThreadGroup
     private $data;
 
     /**
+     * @param $projectName
+     * @param \Stackable $data
      * @param array $threads
      */
     public function __construct($projectName, \Stackable $data, array $threads)
@@ -33,7 +37,7 @@ class ThreadGroup
         // Check if we got some threads
         foreach ($threads as $thread) {
 
-            if ($thread instanceof \Thread) {
+            if ($thread instanceof TokenAnalyzer) {
 
                 $this->threads[] = $thread;
                 $thread->start();
@@ -76,6 +80,12 @@ class ThreadGroup
 
         // Sort the labels
         sort($this->result->labels);
+
+        // Sort the count arrays
+        foreach ($this->result->data as $token => $count) {
+
+            sort($this->result->data[$token]);
+        }
 
         $this->isReady = true;
     }
