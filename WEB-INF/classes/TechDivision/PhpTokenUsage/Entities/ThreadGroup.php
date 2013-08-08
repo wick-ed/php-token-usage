@@ -70,11 +70,12 @@ class ThreadGroup
             // Now gather the data by token and version
             foreach ($data as $token => $count) {
 
-                $this->result->data[$token][$version] += $count / $this->result->tokenCount;
+                $this->result->data[$token][$version] += $count;
             }
         }
 
-        var_dump($this->result);
+        // Sort the labels
+        sort($this->result->labels);
 
         $this->isReady = true;
     }

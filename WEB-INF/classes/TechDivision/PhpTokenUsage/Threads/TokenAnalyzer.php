@@ -106,17 +106,18 @@ class TokenAnalyzer extends \Thread
 
         // Now traverse over all the files
         $searchedTokens = array_flip($this->tokens);
-        $this->data[$this->version]['files'] = count($files);
+        $data[$this->version]['files'] = count($files);
         foreach ($files as $file) {
 
             // First of all we get the tokens
             $tokens = token_get_all(file_get_contents($file));
 
             // Scan all the tokens
-            $counter = $data[$this->version]['tokens'] = count($tokens);
+            $counter = count($tokens);
+            $data[$this->version]['tokens'] += $counter;
             for ($i = 0; $i < $counter; $i++) {
 
-                if (is_array($token) && isset($searchedTokens[$tokens[$i][0]])) {
+                if (is_array($tokens[$i]) && isset($searchedTokens[$tokens[$i][0]])) {
 
                     $data[$this->version][$tokens[$i][0]]++;
                 }
@@ -130,7 +131,5 @@ class TokenAnalyzer extends \Thread
 
         // Give our results to the stackable
         $this->data[$this->version] = $data[$this->version];
-
-        var_dump($this->data);
     }
 }

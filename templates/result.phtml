@@ -35,31 +35,36 @@
             padding-top: 20px;
             padding-bottom: 40px;
         }
+
         table td {
             padding: 12px;
         }
-        /* Custom container */
+
+            /* Custom container */
         .container-narrow {
             margin: 0 auto;
             max-width: 700px;
         }
+
+        #result {
+            margin: 0 auto;
+        }
+
         .container-narrow > hr {
             margin: 30px 0;
         }
 
-        /* Supporting marketing content */
-        .marketing {
-            margin: 60px 0;
+        .token {
+            margin-left: 10px;
+            margin-bottom: 10px;
         }
+
         .marketing p + h4 {
             margin-top: 28px;
         }
-
-        .nowrap {
-            white-space:nowrap;
-        }
     </style>
 
+    <script src="components/chart/chart.js"></script>
 </head>
 
 <body>
@@ -67,23 +72,23 @@
 <div class="container-narrow">
 
     <div class="masthead">
-        <h3 class="muted"><?php echo $this->getWebappName() ?></h3>
-        ... an <a href="http://appserver.io/" target="_blank">appserver</a> demo application
+        <h3 class="muted"><?php echo $this->getWebappName() ?></h3>... an <a href="http://appserver.io/" target="_blank">appserver</a> demo application
     </div>
 
     <hr>
 
-    <div class="span12">
-        Please be patient, a horde of our threads are busy to serve you
-    </div>
-    <div id="result" class="span12">
-        <?php foreach ($this->getData() as $data) : ?>
-            <div class="push-left">
-                <?php echo $data->createString() ?>
-            </div>
-        <?php endforeach; ?>
-    </div>
+    Please be patient, a horde of our threads are busy to serve you
+
+    <hr>
 </div>
+<div id="result" class="span11">
+    <?php foreach ($this->getData() as $data) : ?>
+        <div class="push-left span5">
+            <?php echo $data->createString() ?>
+        </div>
+    <?php endforeach; ?>
+</div>
+
 <!-- /container -->
 
 <!-- Le javascript

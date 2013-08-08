@@ -30,21 +30,24 @@ class Result
     {
         $result = '';
 
-        $result .= '<span>We analyzed '. $this->tokenCount . ' tokens in '. $this->fileCount . ' files in '. $this->duration .' seconds.</span>
-        <script type="text/javascript">var data = {
-        labels : [' . implode(',', $this->labels) . '],
+        $result .= '<span>We analyzed '. $this->tokenCount . ' tokens in '. $this->fileCount . ' files in '. number_format($this->duration, 2) .' seconds.</span>
+        <canvas id="' . $this->name . '" width="350" height="350"></canvas>
+        <script type="text/javascript">var ' . $this->name . 'Data = {
+        labels : ["' . implode('","', $this->labels) . '"],
         datasets : [';
 
         $tmp = array();
         $color = array();
         foreach ($this->data as $token => $data) {
 
-            $color[$token] = (int) rand(125, 255);
+            $color[$token][1] = (int) rand(25, 200);
+            $color[$token][2] = (int) rand(25, 200);
+            $color[$token][3] = (int) rand(25, 200);
 
             $tmp[] = '{
-                fillColor : "rgba(' . $color[$token] . ',' . $color[$token] . ',' . $color[$token] . ',0.5)",
-                strokeColor : "rgba(' . $color[$token] . ',' . $color[$token] . ',' . $color[$token] . ',1)",
-                pointColor : "rgba(' . $color[$token] . ',' . $color[$token] . ',' . $color[$token] . ',1)",
+                fillColor : "rgba(' . $color[$token][1] . ',' . $color[$token][2] . ',' . $color[$token][3] . ',0.5)",
+                strokeColor : "rgba(' . $color[$token][1] . ',' . $color[$token][2] . ',' . $color[$token][3] . ',1)",
+                pointColor : "rgba(' . $color[$token][1] . ',' . $color[$token][2] . ',' . $color[$token][3] . ',1)",
                 pointStrokeColor : "#fff",
                 data : [' . implode(',', $data) . ']
             }';
@@ -55,15 +58,17 @@ class Result
         $result .= ']
         };';
 
+        // Create the code to initialize the graph
+        $result .= '
+        var ' . $this->name . ' = document.getElementById("' . $this->name . '").getContext("2d");
+        var ' . $this->name . 'Chart = new Chart(' . $this->name . ').Line(' . $this->name . 'Data);
+        </script>';
+
         // Create the legend
         foreach ($this->data as $token => $data) {
 
-            $result .= '<span class="push-left" style="color:#fff; background-color: rgba(' . $color[$token] . ',' . $color[$token] . ',' . $color[$token] . ',0.5)">' . $token . '</span>';
+            $result .= '<span class="push-left token" style="color:#fff; background-color: rgba(' . $color[$token][1] . ',' . $color[$token][2] . ',' . $color[$token][3] . ',1)">' . token_name($token) . '</span>';
         }
-
-        // Create the code to initialize the graph
-        $result .= 'var ' . $this->name . ' = document.getElementById("' . $this->name . '").getContext("2d");
-    var myNewChart = new Chart(' . $this->name . ').Line(data);</script>';
 
         return $result;
     }
