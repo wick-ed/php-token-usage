@@ -76,17 +76,20 @@ class IndexServlet extends HttpServlet
     {
         // load the params with the entity data
         $parameterMap = $req->getParameterMap();
-
+        /*var_dump($parameterMap);die();
         // check if the necessary params has been specified and are valid
-        /*if (!array_key_exists('tokens', $parameterMap)) {
+        if (!array_key_exists('tokenList[]', $parameterMap)) {
 
             throw new \Exception('You did not pass any valid tokens');
 
         } else {
 
-            foreach($parameterMap['tokens'] as $token) {
+            foreach($parameterMap['tokenList[]'] as $token) {
 
-                $tokens = filter_var($token, FILTER_SANITIZE_STRING);
+                if ($token !== 0) {
+
+                    $tokens = filter_var($token, FILTER_SANITIZE_STRING);
+                }
             }
         }*/
 

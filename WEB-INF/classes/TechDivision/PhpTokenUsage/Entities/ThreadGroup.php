@@ -52,7 +52,25 @@ class ThreadGroup
 
         // Create a result for this thread group
         $this->result = new Result();
-    $this->result->name = $projectName;
+        $this->result->name = $projectName;
+
+        // We have to compare the version which are part of our data object
+        $sortedData = array();
+        $tmp = array();
+        foreach ($this->data as $version => $data) {
+
+            $tmp[] = $version;
+        }
+
+        // Now sort our version array using the versionSort mechanism
+        usort($tmp, array('self', 'versionSort'));
+        $tmp = array_flip($tmp);
+
+        // Set them all 0
+        foreach ($tmp as $version => $value) {
+
+            $tmp[$version] = 0;
+        }
 
         foreach ($this->data as $version => $data) {
 
@@ -74,6 +92,9 @@ class ThreadGroup
             // Now gather the data by token and version
             foreach ($data as $token => $count) {
 
+                // Preset the data array so we got a sorted array
+                $this->result->data[$token] = $tmp;
+
                 $this->result->data[$token][$version] += $count;
             }
         }
@@ -81,12 +102,16 @@ class ThreadGroup
         // Sort the labels
         sort($this->result->labels);
 
-        // Sort the count arrays
-        foreach ($this->result->data as $token => $count) {
-
-            sort($this->result->data[$token]);
-        }
-
         $this->isReady = true;
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return mixed
+     */
+    private static function versionSort($a, $b)
+    {
+        return version_compare($a, $b);
     }
 }

@@ -62,7 +62,7 @@ class Result
 
         $result .= '
         <h3>For <span style="color:rgba(' . (int) $masterColor[1] . ',' . (int) $masterColor[2] . ',' . (int) $masterColor[3] . ',1);">'. $this->name . '</span></h3>
-        <span>...we analyzed '. $this->tokenCount . ' tokens in '. $this->fileCount . ' files in '. number_format($this->duration, 2) .' seconds.</span>
+        <span>...we analyzed <span style="color:rgba(' . (int) $masterColor[1] . ',' . (int) $masterColor[2] . ',' . (int) $masterColor[3] . ',1);">'. $this->tokenCount . '</span> tokens within <span style="color:rgba(' . (int) $masterColor[1] . ',' . (int) $masterColor[2] . ',' . (int) $masterColor[3] . ',1);">'. $this->fileCount . '</span> files in <span style="color:rgba(' . (int) $masterColor[1] . ',' . (int) $masterColor[2] . ',' . (int) $masterColor[3] . ',1);">'. number_format($this->duration, 2) . '</span> seconds.</span>
         <canvas id="' . $this->name . '" width="450" height="350"></canvas>
         <script type="text/javascript">var ' . $this->name . 'Data = {
         labels : ["' . implode('","', $this->labels) . '"],
