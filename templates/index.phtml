@@ -119,7 +119,13 @@
 
             <div id="tokens">
                 <strong>Tokens to search for:</strong>
-                <select id = "tokenList[]">
+                <select id="tokens" name="tokens[]">
+                    <option value="0">Please choose</option>
+                    <?php foreach ($this->getTokens() as $value => $name) : ?>
+                        <option value="<?php echo $value ?>"><?php echo $name ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select id="tokens" name="tokens[]">
                     <option value="0">Please choose</option>
                     <?php foreach ($this->getTokens() as $value => $name) : ?>
                         <option value="<?php echo $value ?>"><?php echo $name ?></option>

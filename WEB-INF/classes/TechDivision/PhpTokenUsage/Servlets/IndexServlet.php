@@ -76,24 +76,29 @@ class IndexServlet extends HttpServlet
     {
         // load the params with the entity data
         $parameterMap = $req->getParameterMap();
-        /*var_dump($parameterMap);die();
+
         // check if the necessary params has been specified and are valid
-        if (!array_key_exists('tokenList[]', $parameterMap)) {
+        $tokens = array();
+        if (!array_key_exists('tokens', $parameterMap)) {
 
             throw new \Exception('You did not pass any valid tokens');
 
         } else {
 
-            foreach($parameterMap['tokenList[]'] as $token) {
+            foreach($parameterMap['tokens'] as $token) {
 
                 if ($token !== 0) {
 
-                    $tokens = filter_var($token, FILTER_SANITIZE_STRING);
+                    $tokens[] = filter_var($token, FILTER_SANITIZE_STRING);
                 }
             }
-        }*/
+        }
 
-        $tokens = array(T_REQUIRE, T_REQUIRE_ONCE, T_INCLUDE, T_INCLUDE_ONCE);
+        // We still might have not got anything
+        if (empty($tokens)) {
+
+            throw new \Exception('You did not pass any valid tokens');
+        }
 
         // build path to template
         $pathToTemplate = $this->getServletConfig()->getWebappPath()

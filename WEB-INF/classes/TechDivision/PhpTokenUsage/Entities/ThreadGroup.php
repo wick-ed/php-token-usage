@@ -72,6 +72,11 @@ class ThreadGroup
             $tmp[$version] = 0;
         }
 
+        // Lets get the first element and use token count as a basis
+        // for our multiplier. The multiplier is used to make the usage counter comparable.
+        $firstSet = reset($this->data);
+        $countMultiplier = $firstSet['tokens'];
+
         foreach ($this->data as $version => $data) {
 
             // Get all the labels
@@ -80,6 +85,9 @@ class ThreadGroup
             // Get the file and token count
             $this->result->fileCount += $data['files'];
             $this->result->tokenCount += $data['tokens'];
+
+            // We need the current token count for our multiplier
+            $currentMultiplier = $data['tokens'];
 
             // Get the time
             $this->result->duration += $data['time'];
@@ -93,9 +101,11 @@ class ThreadGroup
             foreach ($data as $token => $count) {
 
                 // Preset the data array so we got a sorted array
-                $this->result->data[$token] = $tmp;
+                if (!isset($this->result->data[$token])) {
+                    $this->result->data[$token] = $tmp;
+                }
 
-                $this->result->data[$token][$version] += $count;
+                $this->result->data[$token][$version] += $count * ($currentMultiplier / $countMultiplier);
             }
         }
 
