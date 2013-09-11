@@ -113,7 +113,7 @@
         <span>Welcome to the appserver based multithreaded PHP token usage analyzer.</span>
         <span>You will be able to analyze the use of certain PHP language structures within some well known projects over time.</span>
         <br />
-        <span>Please be aware that every request <strong>gets calculated new every time</strong>. Caching would not help us show off. ;)</span>
+        <span>Please be aware that every request <strong>gets calculated new every time</strong>. Caching would not help us showing off. ;)</span>
     </div>
 
     <hr>
@@ -160,19 +160,14 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="components/require.js"></script>
+<script src="components/jquery/jquery.js"></script>
 <script type="text/javascript">
 
         function addTokens() {
 
-            var code = '<select class="tokens" name="tokens[]">' +
-                '<option value="0">Please choose</option>' +
-            <?php foreach ($this->getTokens() as $value => $name) : ?> +
-            '<option value="<?php echo $value ?>"><?php echo $name ?></option>' +
-                <?php endforeach; ?> +
-                '</select>';
+            var code = '<select class="tokens" name="tokens[]"> <option value="0">Please choose</option> <?php foreach ($this->getTokens() as $value => $name) : ?><option value="<?php echo $value ?>"><?php echo $name ?></option><?php endforeach; ?></select>';
 
-            $(".tokens").last().append(code);
+            $(".tokens").last().after(code);
         }
 
 </script>
