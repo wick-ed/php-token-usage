@@ -13,8 +13,9 @@ They have to be of the form <PROJECT_NAME>/<VERSION>.
 Add at least 2 versions per project to get reasonable results.
 
 Example:
-
+```
 yii
 	1.1.05
 	1.1.10
 	1.1.13
+```
