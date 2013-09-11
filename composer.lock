@@ -3,24 +3,24 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "deb174de0508e289b7c1d0d9af4b7065",
+    "hash": "282316249083df8be43e946d4fc8ccbf",
     "packages": [
         {
             "name": "components/bootstrap",
-            "version": "2.3.2",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/bootstrap.git",
-                "reference": "2.3.2"
+                "reference": "8af3d03f24c1806340fc07e3e070ff32a4b48b2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/bootstrap/zipball/2.3.2",
-                "reference": "2.3.2",
+                "url": "https://api.github.com/repos/components/bootstrap/zipball/8af3d03f24c1806340fc07e3e070ff32a4b48b2a",
+                "reference": "8af3d03f24c1806340fc07e3e070ff32a4b48b2a",
                 "shasum": ""
             },
             "require": {
-                "components/jquery": "*"
+                "components/jquery": ">=1.9"
             },
             "suggest": {
                 "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
@@ -31,10 +31,13 @@
                     "scripts": [
                         "js/bootstrap.js"
                     ],
+                    "styles": [
+                        "css/bootstrap.css"
+                    ],
                     "files": [
                         "js/bootstrap.min.js",
                         "css/*.css",
-                        "img/*.png"
+                        "fonts/*"
                     ],
                     "shim": {
                         "deps": [
@@ -58,7 +61,7 @@
                 "bootstrap",
                 "css"
             ],
-            "time": "2013-06-05 15:22:39"
+            "time": "2013-09-11 04:29:23"
         },
         {
             "name": "components/bootstrap-default",
@@ -66,12 +69,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/bootstrap-default.git",
-                "reference": "2.3.2"
+                "reference": "1218417ee4a6868910133e2a6a6ddfa97b535fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/bootstrap-default/zipball/2.3.2",
-                "reference": "2.3.2",
+                "url": "https://api.github.com/repos/components/bootstrap-default/zipball/1218417ee4a6868910133e2a6a6ddfa97b535fe4",
+                "reference": "1218417ee4a6868910133e2a6a6ddfa97b535fe4",
                 "shasum": ""
             },
             "require": {
@@ -118,12 +121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/font-awesome.git",
-                "reference": "3.2.1"
+                "reference": "44e665c187000d03eb055a14eeb74f89445212e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/3.2.1",
-                "reference": "3.2.1",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/44e665c187000d03eb055a14eeb74f89445212e6",
+                "reference": "44e665c187000d03eb055a14eeb74f89445212e6",
                 "shasum": ""
             },
             "require": {
@@ -159,12 +162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "2.0.3"
+                "reference": "452a56b52b8f4a032256cdb8b6838f25f0bdb3d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/2.0.3",
-                "reference": "2.0.3",
+                "url": "https://api.github.com/repos/components/jquery/zipball/452a56b52b8f4a032256cdb8b6838f25f0bdb3d2",
+                "reference": "452a56b52b8f4a032256cdb8b6838f25f0bdb3d2",
                 "shasum": ""
             },
             "require": {
@@ -196,7 +199,7 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2013-07-04 15:59:58"
+            "time": "2013-07-12 08:48:34"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -271,16 +274,16 @@
         },
         {
             "name": "robloach/component-installer",
-            "version": "0.0.11",
+            "version": "0.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "0.0.11"
+                "reference": "1864f25db21fc173e02a359f646acd596c1b0460"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/0.0.11",
-                "reference": "0.0.11",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/1864f25db21fc173e02a359f646acd596c1b0460",
+                "reference": "1864f25db21fc173e02a359f646acd596c1b0460",
                 "shasum": ""
             },
             "require": {
@@ -311,21 +314,21 @@
                 }
             ],
             "description": "Allows installation of Components via Composer.",
-            "time": "2013-05-10 04:14:46"
+            "time": "2013-08-31 23:46:48"
         },
         {
             "name": "symfony/process",
-            "version": "v2.3.2",
+            "version": "v2.3.4",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "v2.3.2"
+                "reference": "1e91553e1cedd0b8fb1da6ea4f89b02e21713d5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/1e91553e1cedd0b8fb1da6ea4f89b02e21713d5b",
+                "reference": "1e91553e1cedd0b8fb1da6ea4f89b02e21713d5b",
                 "shasum": ""
             },
             "require": {
@@ -358,7 +361,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-01 12:24:43"
+            "time": "2013-08-22 06:42:25"
         }
     ],
     "packages-dev": [

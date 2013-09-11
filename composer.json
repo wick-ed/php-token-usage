@@ -6,7 +6,7 @@
     "require": {
         "components/jquery": "*",
         "components/font-awesome": "*",
-        "components/bootstrap-default": "*"
+        "components/bootstrap-default": "2.*"
     },
     "authors": [
         {

@@ -44,11 +44,19 @@
             max-width: 700px;
         }
         .container-narrow > hr {
-            margin: 30px 0;
+            margin: 15px 0 15px 0;
         }
 
         #projects ul li{
             margin-bottom: 10px;
+        }
+
+        .vr {
+            height: 220px;
+            float: left;
+            margin: 0 15px 0 15px;
+            border-left: 1px solid #eeeeee;
+            border-right: 1px solid #ffffff;
         }
 
         /* Main marketing message and sign up button */
@@ -65,12 +73,21 @@
             padding: 14px 24px;
         }
 
+        #add-tokens {
+            margin-bottom: 11px;
+            margin-left: 20px;
+        }
+
         /* Supporting marketing content */
         .marketing {
             margin: 60px 0;
         }
         .marketing p + h4 {
             margin-top: 28px;
+        }
+
+        .marketing strong {
+            padding-bottom: 1em;
         }
 
         .nowrap {
@@ -109,34 +126,30 @@
                     <?php foreach ($this->getProjects() as $project) : ?>
                     <li>
                         <?php echo $project->name ?>
-                        <input class="push-right" type="checkbox" checked="checked" name="<?php echo strtolower($project->name) ?>" />
+                        <input class="pull-right" type="checkbox" checked="checked" name="<?php echo strtolower($project->name) ?>" />
                     </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
 
-            <vr>
+            <div class="vr"></div>
 
-            <div id="tokens">
+            <div id="tokens" class="span5">
                 <strong>Tokens to search for:</strong>
-                <select id="tokens" name="tokens[]">
+                <select class="tokens" name="tokens[]">
                     <option value="0">Please choose</option>
                     <?php foreach ($this->getTokens() as $value => $name) : ?>
                         <option value="<?php echo $value ?>"><?php echo $name ?></option>
                     <?php endforeach; ?>
                 </select>
-                <select id="tokens" name="tokens[]">
-                    <option value="0">Please choose</option>
-                    <?php foreach ($this->getTokens() as $value => $name) : ?>
-                        <option value="<?php echo $value ?>"><?php echo $name ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="button" id="add-tokens" value="+" onclick="addTokens()" />
             </div>
 
-            <vr>
+            <div class="vr"></div>
 
-            <div class="span6 pull-right">
-                <input type="submit" />
+            <div class="span2 pull-right">
+                <strong>Analyze:</strong>
+                <input type="submit" value="start"/>
             </div>
         </form>
     </div>
@@ -148,5 +161,20 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="components/require.js"></script>
+<script type="text/javascript">
+
+        function addTokens() {
+
+            var code = '<select class="tokens" name="tokens[]">' +
+                '<option value="0">Please choose</option>' +
+            <?php foreach ($this->getTokens() as $value => $name) : ?> +
+            '<option value="<?php echo $value ?>"><?php echo $name ?></option>' +
+                <?php endforeach; ?> +
+                '</select>';
+
+            $(".tokens").last().append(code);
+        }
+
+</script>
 </body>
 </html>

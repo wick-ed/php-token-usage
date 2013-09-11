@@ -1,54 +1,5 @@
 [
     {
-        "name": "symfony/process",
-        "version": "v2.3.2",
-        "version_normalized": "2.3.2.0",
-        "target-dir": "Symfony/Component/Process",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/Process.git",
-            "reference": "v2.3.2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Process/zipball/v2.3.2",
-            "reference": "v2.3.2",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "time": "2013-07-01 12:24:43",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Process\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Process Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "kriswallsmith/assetic",
         "version": "v1.1.2",
         "version_normalized": "1.1.2.0",
@@ -122,18 +73,67 @@
         ]
     },
     {
-        "name": "robloach/component-installer",
-        "version": "0.0.11",
-        "version_normalized": "0.0.11.0",
+        "name": "symfony/process",
+        "version": "v2.3.4",
+        "version_normalized": "2.3.4.0",
+        "target-dir": "Symfony/Component/Process",
         "source": {
             "type": "git",
-            "url": "https://github.com/RobLoach/component-installer.git",
-            "reference": "0.0.11"
+            "url": "https://github.com/symfony/Process.git",
+            "reference": "1e91553e1cedd0b8fb1da6ea4f89b02e21713d5b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/0.0.11",
-            "reference": "0.0.11",
+            "url": "https://api.github.com/repos/symfony/Process/zipball/1e91553e1cedd0b8fb1da6ea4f89b02e21713d5b",
+            "reference": "1e91553e1cedd0b8fb1da6ea4f89b02e21713d5b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "time": "2013-08-22 06:42:25",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Process\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Process Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "robloach/component-installer",
+        "version": "0.0.12",
+        "version_normalized": "0.0.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/RobLoach/component-installer.git",
+            "reference": "1864f25db21fc173e02a359f646acd596c1b0460"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/1864f25db21fc173e02a359f646acd596c1b0460",
+            "reference": "1864f25db21fc173e02a359f646acd596c1b0460",
             "shasum": ""
         },
         "require": {
@@ -143,7 +143,7 @@
         "require-dev": {
             "composer/composer": "1.*"
         },
-        "time": "2013-05-10 04:14:46",
+        "time": "2013-08-31 23:46:48",
         "type": "composer-installer",
         "extra": {
             "class": "ComponentInstaller\\Installer"
@@ -168,47 +168,64 @@
         "description": "Allows installation of Components via Composer."
     },
     {
-        "name": "components/font-awesome",
-        "version": "3.2.1",
-        "version_normalized": "3.2.1.0",
+        "name": "components/bootstrap",
+        "version": "3.0.0",
+        "version_normalized": "3.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/components/font-awesome.git",
-            "reference": "3.2.1"
+            "url": "https://github.com/components/bootstrap.git",
+            "reference": "8af3d03f24c1806340fc07e3e070ff32a4b48b2a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/components/font-awesome/zipball/3.2.1",
-            "reference": "3.2.1",
+            "url": "https://api.github.com/repos/components/bootstrap/zipball/8af3d03f24c1806340fc07e3e070ff32a4b48b2a",
+            "reference": "8af3d03f24c1806340fc07e3e070ff32a4b48b2a",
             "shasum": ""
         },
         "require": {
-            "robloach/component-installer": "*"
+            "components/jquery": ">=1.9"
         },
-        "time": "2013-07-27 07:29:06",
+        "suggest": {
+            "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
+        },
+        "time": "2013-09-11 04:29:23",
         "type": "component",
         "extra": {
-            "branch-alias": {
-                "dev-master": "3.2-dev"
-            },
             "component": {
+                "scripts": [
+                    "js/bootstrap.js"
+                ],
                 "styles": [
-                    "css/font-awesome.css"
+                    "css/bootstrap.css"
                 ],
                 "files": [
-                    "css/font-awesome.min.css",
-                    "css/font-awesome-ie7.*",
-                    "font/*"
-                ]
+                    "js/bootstrap.min.js",
+                    "css/*.css",
+                    "fonts/*"
+                ],
+                "shim": {
+                    "deps": [
+                        "jquery"
+                    ]
+                }
             }
         },
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT",
-            "OFL-1.1"
+            "Apache-2.0"
         ],
-        "description": "The iconic font designed for use with Twitter Bootstrap."
+        "authors": [
+            {
+                "name": "Twitter, Inc"
+            }
+        ],
+        "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+        "homepage": "http://twitter.github.com/bootstrap/",
+        "keywords": [
+            "bootstrap",
+            "css"
+        ]
     },
     {
         "name": "components/jquery",
@@ -217,18 +234,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/components/jquery.git",
-            "reference": "2.0.3"
+            "reference": "452a56b52b8f4a032256cdb8b6838f25f0bdb3d2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/components/jquery/zipball/2.0.3",
-            "reference": "2.0.3",
+            "url": "https://api.github.com/repos/components/jquery/zipball/452a56b52b8f4a032256cdb8b6838f25f0bdb3d2",
+            "reference": "452a56b52b8f4a032256cdb8b6838f25f0bdb3d2",
             "shasum": ""
         },
         "require": {
             "robloach/component-installer": "*"
         },
-        "time": "2013-07-04 15:59:58",
+        "time": "2013-07-12 08:48:34",
         "type": "component",
         "extra": {
             "component": {
@@ -258,75 +275,18 @@
         "homepage": "http://jquery.com"
     },
     {
-        "name": "components/bootstrap",
-        "version": "2.3.2",
-        "version_normalized": "2.3.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/components/bootstrap.git",
-            "reference": "2.3.2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/components/bootstrap/zipball/2.3.2",
-            "reference": "2.3.2",
-            "shasum": ""
-        },
-        "require": {
-            "components/jquery": "*"
-        },
-        "suggest": {
-            "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
-        },
-        "time": "2013-06-05 15:22:39",
-        "type": "component",
-        "extra": {
-            "component": {
-                "scripts": [
-                    "js/bootstrap.js"
-                ],
-                "files": [
-                    "js/bootstrap.min.js",
-                    "css/*.css",
-                    "img/*.png"
-                ],
-                "shim": {
-                    "deps": [
-                        "jquery"
-                    ]
-                }
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Twitter, Inc"
-            }
-        ],
-        "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
-        "homepage": "http://twitter.github.com/bootstrap/",
-        "keywords": [
-            "bootstrap",
-            "css"
-        ]
-    },
-    {
         "name": "components/bootstrap-default",
         "version": "2.3.2",
         "version_normalized": "2.3.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/components/bootstrap-default.git",
-            "reference": "2.3.2"
+            "reference": "1218417ee4a6868910133e2a6a6ddfa97b535fe4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/components/bootstrap-default/zipball/2.3.2",
-            "reference": "2.3.2",
+            "url": "https://api.github.com/repos/components/bootstrap-default/zipball/1218417ee4a6868910133e2a6a6ddfa97b535fe4",
+            "reference": "1218417ee4a6868910133e2a6a6ddfa97b535fe4",
             "shasum": ""
         },
         "require": {
@@ -367,5 +327,48 @@
             "bootstrap",
             "css"
         ]
+    },
+    {
+        "name": "components/font-awesome",
+        "version": "3.2.1",
+        "version_normalized": "3.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/components/font-awesome.git",
+            "reference": "44e665c187000d03eb055a14eeb74f89445212e6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/components/font-awesome/zipball/44e665c187000d03eb055a14eeb74f89445212e6",
+            "reference": "44e665c187000d03eb055a14eeb74f89445212e6",
+            "shasum": ""
+        },
+        "require": {
+            "robloach/component-installer": "*"
+        },
+        "time": "2013-07-27 07:29:06",
+        "type": "component",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            },
+            "component": {
+                "styles": [
+                    "css/font-awesome.css"
+                ],
+                "files": [
+                    "css/font-awesome.min.css",
+                    "css/font-awesome-ie7.*",
+                    "font/*"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT",
+            "OFL-1.1"
+        ],
+        "description": "The iconic font designed for use with Twitter Bootstrap."
     }
 ]
