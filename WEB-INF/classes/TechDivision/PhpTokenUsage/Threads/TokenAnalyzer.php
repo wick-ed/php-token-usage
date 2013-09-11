@@ -85,14 +85,14 @@ class TokenAnalyzer extends \Thread
         }
 
         // Now traverse over all the files there are for this version
-        $items = glob($this->path . DS . $this->project->name . DS . $this->version . DS . '*');
+        $items = glob($this->path . DIRECTORY_SEPARATOR . $this->project->name . DIRECTORY_SEPARATOR . $this->version . DIRECTORY_SEPARATOR . '*');
         $files = array();
 
         for ($i = 0; $i < count($items); $i++) {
 
             if (is_dir($items[$i]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
 
-                $items = array_merge($items, glob($items[$i] . DS . '*'));
+                $items = array_merge($items, glob($items[$i] . DIRECTORY_SEPARATOR . '*'));
 
             } else {
 

@@ -47,7 +47,7 @@ class IndexServlet extends HttpServlet
     {
         // build path to template
         $pathToTemplate = $this->getServletConfig()->getWebappPath()
-            . DS . 'templates' . DS . 'index.phtml';
+            . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'index.phtml';
 
         // init template
         $template = new IndexTemplate($pathToTemplate);
@@ -102,7 +102,7 @@ class IndexServlet extends HttpServlet
 
         // build path to template
         $pathToTemplate = $this->getServletConfig()->getWebappPath()
-            . DS . 'templates' . DS . 'result.phtml';
+            . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'result.phtml';
 
         // init template
         $template = new ResultTemplate($pathToTemplate);
@@ -171,17 +171,17 @@ class IndexServlet extends HttpServlet
         $items = scandir($path);
 
         for ($i = 0; $i < count($items); $i++) {
-            if (is_dir($path . DS . $items[$i]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
+            if (is_dir($path . DIRECTORY_SEPARATOR . $items[$i]) && ($items[$i] !== '.' && $items[$i] !== '..')) {
 
                 // Make a new project entity and set the name.
                 $project = new Project();
                 $project->name = $items[$i];
 
-                $versionItems = scandir($path . DS . $items[$i]);
+                $versionItems = scandir($path . DIRECTORY_SEPARATOR . $items[$i]);
 
                 // Now traverse over all the subfolders and add them to the version array
                 for ($j = 0; $j < count($versionItems); $j++) {
-                    if (is_dir($path . DS . $items[$i] . DS . $versionItems[$j]) && ($versionItems[$j] !== '.' && $versionItems[$j] !== '..')) {
+                    if (is_dir($path . DIRECTORY_SEPARATOR . $items[$i] . DIRECTORY_SEPARATOR . $versionItems[$j]) && ($versionItems[$j] !== '.' && $versionItems[$j] !== '..')) {
 
                         $project->versions[] = $versionItems[$j];
                     }
